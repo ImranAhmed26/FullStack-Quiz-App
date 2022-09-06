@@ -1,34 +1,35 @@
 import Quiz from "../models/Quiz.js";
+import { createError } from "../utils/error.js";
 
-const addQuiz = async (req, res) => {
+const addQuiz = async (req, res, next) => {
   const newQuiz = new Quiz(req.body);
   try {
     const savedQuiz = await newQuiz.save();
     res.status(200).json(savedQuiz);
   } catch (error) {
-    res.status(500).json(error);
+    next(error);
   }
 };
 
-const getQuiz = async (req, res) => {
+const getQuiz = async (req, res, next) => {
   try {
     const getSingleQuiz = await Quiz.findById(req.params.id);
     res.status(200).json(getSingleQuiz);
   } catch (error) {
-    res.status(500).json(error);
+    next(error);
   }
 };
 
-const getQuizes = async (req, res) => {
+const getQuizes = async (req, res, next) => {
   try {
     const getAllQuiz = await Quiz.find();
     res.status(200).json(getAllQuiz);
   } catch (error) {
-    res.status(500).json(error);
+    next(error);
   }
 };
 
-const updateQuiz = async (req, res) => {
+const updateQuiz = async (req, res, next) => {
   try {
     const updatedQuiz = await Quiz.findByIdAndUpdate(
       req.params.id,
@@ -37,16 +38,16 @@ const updateQuiz = async (req, res) => {
     );
     res.status(200).json(updatedQuiz);
   } catch (error) {
-    res.status(500).json(error);
+    next(error);
   }
 };
 
-const deleteQuiz = async (req, res) => {
+const deleteQuiz = async (req, res, next) => {
   try {
     await Quiz.findByIdAndDelete(req.params.id);
     res.status(200).json("Quiz Deleted Successfully");
   } catch (error) {
-    res.status(500).json(error);
+   next(error);
   }
 };
 

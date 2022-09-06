@@ -2,6 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 import authRoute from "./routes/auth.js";
 import usersRoute from "./routes/users.js";
@@ -29,6 +30,7 @@ mongoose.connection.on("disconnected", () => {
 
 // middlewares
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 // Routes
@@ -38,8 +40,16 @@ app.use("/api/quizes", quizesRoute);
 app.use("/api/results", resultsRoute);
 app.get("/", (req, res) => res.status(200).send("Server is Live"));
 
-// Listen
+// middleware for error handling
+app.use((err, req, res, next) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "something went wrong !!";
+  return res
+    .status(errorStatus)
+    .json({ success: false, status: errorStatus, message: errorMessage, stack: err.stack });
+});
 
+// Listen
 app.listen(port, () => {
   connect();
   console.log("connected to server");
