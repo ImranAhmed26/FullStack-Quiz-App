@@ -2,23 +2,19 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const QuizSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
+const QuizSchema = new Schema(
+  {
+    name: { type: String, required: true, unique: true, minLength: [5, "Name too Short"] },
+    description: { type: String, required: true, minLength: [10, "Description too Short"]  },
+    image: { type: String },
+    isPaid: { type: Boolean, default: false },
+    duration: { type: Number, require: true },
+    fixedDuration: { type: Boolean, default: false },
+    questions: [{ question: { type: String }, incorrectAnswer: [String], correctAnswer: [String] }],
   },
-  image: { type: String },
-  description: { type: String },
-  questions: [
-    {
-      type: Object,
-      contains: {
-        question: String,
-        options: { type: Array },
-        answer: String,
-      },
-    },
-  ],
-});
+  {
+    timestamps: { createdAt: true },
+  },
+);
 
 export default mongoose.model("Quiz", QuizSchema);
