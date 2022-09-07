@@ -10,7 +10,7 @@ const UserSchema = new Schema(
       minLength: [3, "Name is too short"],
       maxLength: [30, "Name is too long"],
     },
-    username: { type: String, required: true, unique: true, trim: true },
+    userName: { type: String, required: true, unique: true, trim: true },
     phone: {
       type: Number,
       required: true,

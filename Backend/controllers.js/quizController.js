@@ -1,5 +1,4 @@
 import Quiz from "../models/Quiz.js";
-import { createError } from "../utils/error.js";
 
 const addQuiz = async (req, res, next) => {
   const newQuiz = new Quiz(req.body);
