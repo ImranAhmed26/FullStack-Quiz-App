@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import bannerImage from "../public/assets/images/banner-image.jpg";
+// import bannerImage from "../public/assets/images/banner-image.jpg";
 
 export default function Home() {
   return (
@@ -34,7 +34,7 @@ export default function Home() {
 
         <div className="w-2/3 max-w-[34rem] item-center justify-center mx-auto md:order-last">
           <div className="">
-            <Image className="" src={bannerImage} alt="banner image" />
+            {/* <Image className="" src={bannerImage} alt="banner image" /> */}
           </div>
         </div>
       </div>

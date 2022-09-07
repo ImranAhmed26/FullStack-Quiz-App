@@ -6,7 +6,7 @@ const resultSchema = Schema({
   name: { type: String, required: true },
   participants: [
     {
-      username: { type: String, required: true },
+      userName: { type: String, required: true },
       userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
       marks: { type: Number, required: true, default: 0 },
       paid: { type: Boolean, default: false },

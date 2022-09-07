@@ -9,8 +9,8 @@ const register = async (req, res, next) => {
     const hash = bcrypt.hashSync(req.body.password, salt);
     const newUser = new User({
       name: req.body.name,
-      username: req.body.username.toLowerCase(),
-      email: req.body.email.toLowerCase(),
+      userName: req.body.userName,
+      email: req.body.email,
       phone: req.body.phone,
       password: hash,
     });
@@ -23,7 +23,7 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const user = await User.findOne({ username: req.body.username });
+    const user = await User.findOne({ userName: req.body.userName });
     if (!user) return next(createError(404, "User not found!"));
 
     const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
