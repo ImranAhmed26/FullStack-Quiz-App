@@ -3,8 +3,8 @@
 ## Quiz Tank. React | Next JS app
 
 ```
-This quiz app is developed as an
-assignment.
+This is a full-stack quiz app in development.
+Technologies used: MERN , NEXT JS, Tailwind CSS
 
 ```
 
