@@ -27,9 +27,17 @@ const Login = () => {
   const handleSubmit = () => {
     POST(`${"/auth/login"}`, body).then(({ data, status }) => {
       if (status !== 200) {
-        console.log(data);
+        console.log(status);
+      } else if (status === 200) {
+        localStorage.clear();
+        localStorage.setItem("_id", data?._id);
+        localStorage.setItem("token", data?.token);
+        localStorage.setItem("userName", data?.userName);
+        localStorage.setItem("name", data?.name);
+        console.log(data, status);
+        
       }
-      localStorage.clear();
+
       console.log(data);
     });
     // Router.push({
