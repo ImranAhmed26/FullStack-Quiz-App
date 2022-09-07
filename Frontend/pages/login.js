@@ -34,11 +34,8 @@ const Login = () => {
         localStorage.setItem("token", data?.token);
         localStorage.setItem("userName", data?.userName);
         localStorage.setItem("name", data?.name);
-        console.log(data, status);
-        
+        Router.push("/user/homepage");
       }
-
-      console.log(data);
     });
     // Router.push({
     //   pathname: "/user/homepage",
