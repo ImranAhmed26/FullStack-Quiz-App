@@ -3,7 +3,6 @@ import Router, { useRouter } from "next/router";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import axios from "axios";
 
 import { POST } from "../lib/api";
 import topicImage from "../public/assets/images/topic-banner.jpg";
@@ -14,15 +13,21 @@ const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  const router = useRouter();
+  const router = useRouter(); 
   const ref = useRef();
+
+  useEffect(() => {
+    if (localStorage.getItem("token") && localStorage.getItem("type") === "user") {
+      router.push(`/user/homepage`);
+    } else if (localStorage.getItem("token") && localStorage.getItem("type") === "isAdmin") {
+      router.push(`/`);
+    }
+  }, [router]);
 
   const body = {
     userName: name,
     password: password,
   };
-  // username: "sani01",
-  // password: "123123",
 
   const handleSubmit = () => {
     POST(`${"/auth/login"}`, body).then(({ data, status }) => {
@@ -30,17 +35,15 @@ const Login = () => {
         console.log(status);
       } else if (status === 200) {
         localStorage.clear();
-        localStorage.setItem("_id", data?._id);
-        localStorage.setItem("token", data?.token);
-        localStorage.setItem("userName", data?.userName);
-        localStorage.setItem("name", data?.name);
+        localStorage.setItem("_id", data.details?._id);
+        localStorage.setItem("token", data.details?.token);
+        localStorage.setItem("userName", data.details?.userName);
+        localStorage.setItem("name", data.details?.name);
+        localStorage.setItem("type", `${data.isAdmin === true ? "admin" : "user"}`);
         Router.push("/user/homepage");
       }
+      console.log(data);
     });
-    // Router.push({
-    //   pathname: "/user/homepage",
-    //   // query: { id: selectedTopic }
-    // });
   };
 
   return (
@@ -76,7 +79,7 @@ const Login = () => {
                   }}
                   value={password || ""}
                   className="w-72 h-12 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
-                  type="text"
+                  type="password"
                   name="name"
                   id="name"
                   placeholder="Enter Your Password"

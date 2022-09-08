@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-// import bannerImage from "../public/assets/images/banner-image.jpg";
+import bannerImage from "../public/assets/images/banner-image.jpg";
 
 export default function Home() {
   return (
@@ -19,14 +19,14 @@ export default function Home() {
           </p>
 
           <Link
-            href={"/topic"}
+            href={"/user/homepage"}
             type="text"
             name="admin_name"
             id="admin_name"
             className=" mt-6"
             passHref
           >
-            <div className="  w-64 h-12 px-4 py-2 mt-2 md:mx-auto text-center text-xl text-gray-700 bg-green-400 font-bold rounded-sm ring-offset-0 ring-0 outline-0 shadow-md cursor-pointer hover:bg-green-300 hover:text-gray-800 duration-200">
+            <div className="  w-64 h-12 px-4 py-2 mt-2 md:mx-auto text-center text-xl text-gray-700 bg-green-300 font-bold rounded-sm ring-offset-0 ring-0 outline-0 shadow-md cursor-pointer hover:bg-green-400 hover:text-gray-800 duration-200">
               Take a Quiz
             </div>
           </Link>
@@ -34,7 +34,7 @@ export default function Home() {
 
         <div className="w-2/3 max-w-[34rem] item-center justify-center mx-auto md:order-last">
           <div className="">
-            {/* <Image className="" src={bannerImage} alt="banner image" /> */}
+            <Image className="" src={bannerImage} alt="banner image" />
           </div>
         </div>
       </div>
