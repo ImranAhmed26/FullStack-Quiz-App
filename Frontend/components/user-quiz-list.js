@@ -13,11 +13,18 @@ const UserQuizList = () => {
         console.log(status);
       } else {
         setData(data);
-        console.log(data);
+        // console.log(data);
       }
     });
   }, []);
 
+  const handleClick = ({ _id, isPaid }) => {
+    if (isPaid === true) {
+      Router.push({ pathname: "/", query: { id: "selectedTopic" } });
+    } else if (isPaid !== true) {
+      Router.push({ pathname: "/questions", query: { id: _id } });
+    }
+  };
   return (
     <div className="w-full ">
       <div
@@ -27,7 +34,7 @@ const UserQuizList = () => {
         <div className="p-4 gap-4 flex flex-col">
           {data?.map((item) => {
             return (
-              <div key={item.id} className="bg-green-200 w-full h-60 rounded-md p-4 gap-4 flex ">
+              <div key={item.id} className="bg-green-200 w-full  rounded-md p-4 gap-4 flex ">
                 <div className=" w-3/4">
                   <div className="text-2xl font-bold ">{item.name}</div>
                   <div className="text-xl font-normal">{item.description}</div>
@@ -44,7 +51,7 @@ const UserQuizList = () => {
                   <button
                     className="text-xl font-medium text-gray-600 bg-green-100 hover:bg-green-50 py-1 px-16 mt-1 rounded-md transition-all duration-75"
                     onClick={() => {
-                      `${Router.push(item.isPaid === true ? "/" : "")}`;
+                      handleClick(item._id, item.isPaid);
                     }}
                   >
                     {`${item.isPaid === true ? "Buy Quiz" : "Start Quiz"}`}
