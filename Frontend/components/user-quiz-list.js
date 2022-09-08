@@ -18,11 +18,15 @@ const UserQuizList = () => {
     });
   }, []);
 
-  const handleClick = ({ _id, isPaid }) => {
+  const handleClick = (id, isPaid) => {
+    console.log("is is ", id);
     if (isPaid === true) {
-      Router.push({ pathname: "/", query: { id: "selectedTopic" } });
+      Router.push({ pathname: "/questions", query: { id: id } });
     } else if (isPaid !== true) {
-      Router.push({ pathname: "/questions", query: { id: _id } });
+      Router.push({
+        pathname: "/questions",
+        query: { id: id },
+      });
     }
   };
   return (

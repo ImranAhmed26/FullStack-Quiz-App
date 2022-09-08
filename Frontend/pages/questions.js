@@ -41,7 +41,7 @@ const Quiz = () => {
   // }, []);
 
   useEffect(() => {
-    GET(`/quizes/63170a750d84d9b917eb68da${router.query.id}`).then(({ data, status }) => {
+    GET(`/quizes/${router.query.id}`).then(({ data, status }) => {
       if (status !== 200) {
         console.log(data);
       } else {
@@ -53,6 +53,8 @@ const Quiz = () => {
           })),
         );
         setTotalQuestions(data.questions.length);
+        console.log(data.questions);
+        console.log("id ", router.query.id);
 
         // console.log("my data is ", data);
       }
@@ -61,7 +63,7 @@ const Quiz = () => {
     setUserName(user);
   }, []);
 
-  // console.log("total questions are  ", totalQuestions);
+  console.log("total questions are  ", totalQuestions);
   // console.log("quiz is ", quiz);
   // console.log("qui is ", qui);
 
@@ -143,6 +145,7 @@ const Quiz = () => {
             </div>
           </div>
         )}
+        {console.log(totalQuestions)}
         {!quiz[number] && number !== totalQuestions && (
           <div className="flex flex-col items-center ">
             <div className="flex items-center justify-center min-h-[8rem] bg-gray-50 w-[24rem] md:w-[30rem] lg:w-[40rem] text-2xl font-medium text-gray-700 px-6 py-2 mt-16 mb-4 rounded-md drop-shadow-md cursor-default "></div>
