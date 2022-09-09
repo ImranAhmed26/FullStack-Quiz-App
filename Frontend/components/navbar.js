@@ -6,7 +6,8 @@ export default function Navbar() {
   useEffect(() => {
     if (localStorage.getItem("token") && localStorage.getItem("type") === "user") {
       setUserName(localStorage.getItem("userName"));
-    } else if (localStorage.getItem("token") && localStorage.getItem("type") === "isAdmin") {
+    } else if (localStorage.getItem("token") && localStorage.getItem("type") === "admin") {
+      setUserName(localStorage.getItem("userName"));
     }
   }, []);
 
@@ -26,7 +27,7 @@ export default function Navbar() {
               {!userName.length && (
                 <Link href={"/login"} passHref>
                   <a className="cursor-pointer px-3 py-2 border border-gray-800 rounded-sm text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white transition-all duration-150">
-                    Sign In
+                    Login
                   </a>
                 </Link>
               )}

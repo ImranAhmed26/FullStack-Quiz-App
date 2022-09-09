@@ -1,9 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import bannerImage from "../public/assets/images/banner-image.jpg";
 
 export default function Home() {
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("token") && localStorage.getItem("type")) {
+      setUser(localStorage.getItem("type"));
+    }
+  }, []);
+
   return (
     <div className=" py-10 md:py-28 ">
       <div className="flex flex-col md:flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 justify-between items-center">
@@ -19,7 +28,7 @@ export default function Home() {
           </p>
 
           <Link
-            href={"/user/homepage"}
+            href={`${user === "admin" ? "/admin/homepage" : "/user/homepage"}`}
             type="text"
             name="admin_name"
             id="admin_name"

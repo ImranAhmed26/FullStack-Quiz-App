@@ -9,7 +9,7 @@ import Layout from "../../lib/layout.js";
 const HomePage = () => {
   const router = useRouter();
   useEffect(() => {
-    if (localStorage.getItem("type") !== "user") {
+    if (localStorage.getItem("type") !== "admin") {
       router.push(`/login`);
     }
   }, []);

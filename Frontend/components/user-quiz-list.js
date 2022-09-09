@@ -8,6 +8,8 @@ import QuizImage from "../public/assets/images/banner-image.jpg";
 
 const UserQuizList = () => {
   const [data, setData] = useState();
+  const [user, setUser] = useState("");
+
   useEffect(() => {
     GET("/quizes/").then(({ data, status }) => {
       if (!status === 200) {
@@ -17,6 +19,9 @@ const UserQuizList = () => {
         // console.log(data);
       }
     });
+    if (localStorage.getItem("token") && localStorage.getItem("type")) {
+      setUser(localStorage.getItem("type"));
+    }
   }, []);
 
   const handleClick = (id, isPaid) => {
@@ -54,7 +59,15 @@ const UserQuizList = () => {
                   handleClick(item._id, item.isPaid);
                 }}
               >
-                {`${item.isPaid === true ? "Buy Quiz" : "Start Quiz"}`}
+                {`${
+                  user === "admin"
+                    ? "Delete Quiz"
+                    : item.isPaid === true
+                    ? "Buy Quiz"
+                    : item.isPaid !== true
+                    ? "Start Quiz"
+                    : ""
+                }`}
               </button>
             </div>
             <div className=" w-1/4 text-2xl font-bold text-gray-700 hidden md:block">
