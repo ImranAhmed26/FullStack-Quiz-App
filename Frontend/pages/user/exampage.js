@@ -1,12 +1,12 @@
-import { useRouter } from "next/router.js";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-import Navbar from "../../components/navbar.js";
-import Sidebar from "../../components/sidebar.js";
-import UserQuizList from "../../components/user-quiz-list.js";
-import Layout from "../../lib/layout.js";
+import Navbar from "../../components/navbar";
+import Quiz from "../../components/questions";
+import Sidebar from "../../components/sidebar";
+import Layout from "../../lib/layout";
 
-const HomePage = () => {
+const Exampage = () => {
   const router = useRouter();
   useEffect(() => {
     if (localStorage.getItem("type") !== "user") {
@@ -24,9 +24,9 @@ const HomePage = () => {
         <div>
           <Sidebar />
         </div>
-        <div className="w-full ">
+        <div className="w-full">
           <Layout>
-            <UserQuizList />
+            <Quiz />
           </Layout>
         </div>
       </div>
@@ -34,4 +34,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Exampage;

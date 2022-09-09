@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState(0);
   useEffect(() => {
     if (localStorage.getItem("token") && localStorage.getItem("type") === "user") {
       setUserName(localStorage.getItem("userName"));
