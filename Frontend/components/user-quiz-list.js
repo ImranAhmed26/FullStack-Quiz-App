@@ -54,7 +54,8 @@ const UserQuizList = () => {
                 Number of Questions: {item.questions.length}
               </div>
               <button
-                className="text-xl font-medium text-gray-600 bg-green-100 hover:bg-green-50 py-1 px-16 mt-1 rounded-md transition-all duration-75"
+                disabled={user === "admin"}
+                className="text-xl font-medium text-gray-600 bg-green-100 hover:bg-green-50 py-1 px-16 mt-1 rounded-md transition-all duration-75 "
                 onClick={() => {
                   handleClick(item._id, item.isPaid);
                 }}
