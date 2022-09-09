@@ -7,9 +7,11 @@ const CreateQuiz = () => {
   const [isPaid, setIsPaid] = useState(false);
   const [duration, setDuration] = useState(0);
   const [courseFee, setCourseFee] = useState(0);
-  const [question, setQuestion] = useState(0);
-  const [incorrectAnswer, setIncorrectAnswer] = useState([]);
-  const [correctAnswer, setCorrectAnswer] = useState([]);
+  const [question, setQuestion] = useState("");
+  const [correctAnswer, setCorrectAnswer] = useState("");
+  const [incorrectAnswer, setIncorrectAnswer] = useState("");
+  const [incorrectAnswers, setIncorrectAnswers] = useState([]);
+  const [correctAnswers, setCorrectAnswers] = useState([]);
   const [questions, setQuestions] = useState([]);
 
   const questionBody = {
@@ -18,9 +20,22 @@ const CreateQuiz = () => {
     correctAnswer: [],
   };
 
+  const body = {
+    quizName: quizName,
+    description: description,
+    isPaid: isPaid,
+    duration:duration,
+    questions:questions,
+  }
+
   const router = useRouter();
 
   useEffect(() => {}, []);
+
+  const handleAddCorrectAnswer = () => {
+    setCorrectAnswer();
+  };
+  const handleAddIncorrectAnswer = () => {};
   return (
     <div>
       <div className="text-left text-xl text-gray-700 font-semibold py-1">
@@ -115,31 +130,47 @@ const CreateQuiz = () => {
                   placeholder="Question"
                 />
               </div>
-              <div className="py-1">
+              <div className="py-1 flex">
                 <input
                   onChange={(event) => {
                     setCourseFee(event.target.value || "");
                   }}
                   value={correctAnswer || ""}
-                  className="w-72 h-12 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
+                  className="w-56 h-12 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
                   type="text"
                   name="correctAnswer"
                   id="correctAnswer"
-                  placeholder="Correct Answer(s)"
+                  placeholder="Correct Answer"
                 />
+                <div
+                  className="w-16 h-12 px-2 pt-2 rounded-sm border drop-shadow-sm text-center text-xl text-gray-700 font-semibold bg-green-100 hover:bg-green-200 transition-all duration-150"
+                  onClick={() => {
+                    handleAddCorrectAnswer;
+                  }}
+                >
+                  Add
+                </div>
               </div>
-              <div className="py-1">
+              <div className="py-1 flex">
                 <input
                   onChange={(event) => {
                     setCourseFee(event.target.value || "");
                   }}
                   value={incorrectAnswer || ""}
-                  className="w-72 h-12 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
+                  className="w-56 h-12 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
                   type="text"
                   name="incorrectAnswer"
                   id="incorrectAnswer"
                   placeholder="Incorrect Answer"
                 />
+                <div
+                  className="w-16 h-12 px-2 pt-2 rounded-sm border drop-shadow-sm text-center text-xl text-gray-700 font-semibold bg-green-100 hover:bg-green-200 transition-all duration-150"
+                  onClick={() => {
+                    handleAddIncorrectAnswer;
+                  }}
+                >
+                  Add
+                </div>
               </div>
               {/* <div>
                 <button
