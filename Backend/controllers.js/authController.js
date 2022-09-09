@@ -7,13 +7,16 @@ const register = async (req, res, next) => {
   try {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
+
     const newUser = new User({
       name: req.body.name,
       userName: req.body.userName,
       email: req.body.email,
       phone: req.body.phone,
+      isAdmin: req.body.isAdmin,
       password: hash,
     });
+
     await newUser.save();
     res.status(200).send("User has been created successfully.");
   } catch (error) {
@@ -28,15 +31,19 @@ const login = async (req, res, next) => {
 
     const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
     if (!isPasswordCorrect) return next(createError(400, "incorrect Password"));
-    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT, {
-      expiresIn: "2h",
-    });
+
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT);
+
     const { password, isAdmin, ...otherDetails } = user._doc;
     res
-      .cookie("token", token, { httpOnly: true })
+      .cookie("token", token, {
+        httpOnly: true,
+      })
       .status(200)
-      .json({ ...otherDetails, token: token });
-  } catch (error) {}
+      .json({ details: { ...otherDetails }, isAdmin });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export { register, login };

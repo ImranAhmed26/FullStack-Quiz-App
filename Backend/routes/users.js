@@ -8,7 +8,7 @@ router
 
   .get("/", verifyAdmin, getUsers)
   .get("/:id", verifyUser, getUser)
-  .post("/:id", verifyUser, updateUser)
+  .put("/:id", verifyUser, updateUser)
   .delete("/:id", verifyUser, deleteUser);
 
 export default router;

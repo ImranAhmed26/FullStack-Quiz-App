@@ -11,10 +11,10 @@ import { verifyAdmin, verifyUser } from "../utils/verifyToken.js";
 const router = express.Router();
 
 router
-  .post("/", verifyAdmin, addQuiz)
-  .get("/", verifyUser, getQuizes)
-  .get("/:id", verifyUser, getQuiz)
-  .put("/:id", verifyAdmin, updateQuiz)
-  .delete("/:id", verifyAdmin, deleteQuiz);
+  .post("/", addQuiz)
+  .get("/", getQuizes)
+  .get("/:id", getQuiz)
+  .put("/:id", updateQuiz)
+  .delete("/:id", deleteQuiz);
 
 export default router;

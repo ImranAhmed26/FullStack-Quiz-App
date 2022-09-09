@@ -2,7 +2,9 @@ import Result from "../models/Result.js";
 
 const addResult = async (req, res, next) => {
   try {
-    const newResult = new Result(req.body);
+    const { body } = req;
+    // body.user = user._id;
+    const newResult = new Result(body);
     const savedResult = await newResult.save();
     res.status(200).json(savedResult);
   } catch (error) {
