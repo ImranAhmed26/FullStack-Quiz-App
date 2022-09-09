@@ -9,33 +9,45 @@ const CreateQuiz = () => {
   const [courseFee, setCourseFee] = useState(0);
   const [question, setQuestion] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
+  const [correctAnswers, setCorrectAnswers] = useState([]);
   const [incorrectAnswer, setIncorrectAnswer] = useState("");
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
-  const [correctAnswers, setCorrectAnswers] = useState([]);
   const [questions, setQuestions] = useState([]);
 
   const questionBody = {
     question,
-    incorrectAnswer: [],
-    correctAnswer: [],
+    incorrectAnswers,
+    correctAnswers,
   };
 
   const body = {
     quizName: quizName,
     description: description,
     isPaid: isPaid,
-    duration:duration,
-    questions:questions,
-  }
+    duration: duration,
+    questions: questions,
+  };
 
   const router = useRouter();
 
   useEffect(() => {}, []);
 
   const handleAddCorrectAnswer = () => {
-    setCorrectAnswer();
+    console.log(correctAnswer);
+    setCorrectAnswers([...correctAnswers, correctAnswer]);
+    console.log(correctAnswers);
   };
-  const handleAddIncorrectAnswer = () => {};
+  const handleAddIncorrectAnswer = () => {
+    console.log(incorrectAnswer);
+    setIncorrectAnswers([...incorrectAnswers, incorrectAnswer]);
+    console.log(incorrectAnswers);
+  };
+
+  const handleAddQuizQuestion = () => {
+    console.log(questionBody);
+    setQuestions( questionBody);
+    console.log(questions);
+  };
   return (
     <div>
       <div className="text-left text-xl text-gray-700 font-semibold py-1">
@@ -43,8 +55,8 @@ const CreateQuiz = () => {
           Please add quiz below.
         </div>
       </div>
-      <div className="bg-gray-100 w-full h-full flex">
-        <div className="w-1/3 ">
+      <div className="bg-gray-100 w-full h-full flex gap-4">
+        <div className="">
           <div className=" w-full">
             <form className="g">
               <div className="py-1">
@@ -120,7 +132,7 @@ const CreateQuiz = () => {
               <div className="py-1">
                 <input
                   onChange={(event) => {
-                    setCourseFee(event.target.value || "");
+                    setQuestion(event.target.value || "");
                   }}
                   value={question || ""}
                   className="w-72 h-12 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
@@ -133,7 +145,7 @@ const CreateQuiz = () => {
               <div className="py-1 flex">
                 <input
                   onChange={(event) => {
-                    setCourseFee(event.target.value || "");
+                    setCorrectAnswer(event.target.value || "");
                   }}
                   value={correctAnswer || ""}
                   className="w-56 h-12 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
@@ -145,7 +157,7 @@ const CreateQuiz = () => {
                 <div
                   className="w-16 h-12 px-2 pt-2 rounded-sm border drop-shadow-sm text-center text-xl text-gray-700 font-semibold bg-green-100 hover:bg-green-200 transition-all duration-150"
                   onClick={() => {
-                    handleAddCorrectAnswer;
+                    handleAddCorrectAnswer();
                   }}
                 >
                   Add
@@ -154,7 +166,7 @@ const CreateQuiz = () => {
               <div className="py-1 flex">
                 <input
                   onChange={(event) => {
-                    setCourseFee(event.target.value || "");
+                    setIncorrectAnswer(event.target.value || "");
                   }}
                   value={incorrectAnswer || ""}
                   className="w-56 h-12 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
@@ -166,11 +178,19 @@ const CreateQuiz = () => {
                 <div
                   className="w-16 h-12 px-2 pt-2 rounded-sm border drop-shadow-sm text-center text-xl text-gray-700 font-semibold bg-green-100 hover:bg-green-200 transition-all duration-150"
                   onClick={() => {
-                    handleAddIncorrectAnswer;
+                    handleAddIncorrectAnswer();
                   }}
                 >
                   Add
                 </div>
+              </div>
+              <div
+                className="w-72 h-12 px-2 pt-2 rounded-sm border drop-shadow-sm text-center text-xl text-gray-700 font-semibold bg-green-100 hover:bg-green-200 transition-all duration-150"
+                onClick={() => {
+                  handleAddQuizQuestion();
+                }}
+              >
+                Add Quiz Question
               </div>
               {/* <div>
                 <button
@@ -188,7 +208,7 @@ const CreateQuiz = () => {
             </form>
           </div>
         </div>
-        <div className="w-2/3 flex flex-col gap-2 pt-1">
+        <div className=" flex flex-col gap-2 pt-1">
           <div className="w-72 h-12 px-4 pt-2 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-xl text-gray-700 font-semibold">
             {`name: ${quizName}`}
           </div>
