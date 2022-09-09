@@ -33,21 +33,24 @@ const CreateQuiz = () => {
   useEffect(() => {}, []);
 
   const handleAddCorrectAnswer = () => {
-    console.log(correctAnswer);
+    // console.log(correctAnswer);
     setCorrectAnswers([...correctAnswers, correctAnswer]);
-    console.log(correctAnswers);
+    // console.log(correctAnswers);
   };
   const handleAddIncorrectAnswer = () => {
-    console.log(incorrectAnswer);
+    // console.log(incorrectAnswer);
     setIncorrectAnswers([...incorrectAnswers, incorrectAnswer]);
-    console.log(incorrectAnswers);
+    // console.log(incorrectAnswers);
   };
 
   const handleAddQuizQuestion = () => {
     console.log(questionBody);
-    setQuestions( questionBody);
+    setQuestions([...questions, questionBody]);
     console.log(questions);
+    setCorrectAnswers([]);
+    setIncorrectAnswers([]);
   };
+  console.log(questions);
   return (
     <div>
       <div className="text-left text-xl text-gray-700 font-semibold py-1">
@@ -78,7 +81,7 @@ const CreateQuiz = () => {
                     setDescription(event.target.value || "");
                   }}
                   value={description || ""}
-                  className="w-72 h-12 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
+                  className="w-72 h-20 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
                   type="text"
                   name="description"
                   id="description"
