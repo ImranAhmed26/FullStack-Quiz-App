@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { POST } from "../lib/api";
 
 const CreateQuiz = () => {
   const [quizName, setQuizName] = useState("");
@@ -21,7 +22,7 @@ const CreateQuiz = () => {
   };
 
   const body = {
-    quizName: quizName,
+    name: quizName,
     description: description,
     isPaid: isPaid,
     duration: duration,
@@ -49,6 +50,18 @@ const CreateQuiz = () => {
     console.log(questions);
     setCorrectAnswers([]);
     setIncorrectAnswers([]);
+  };
+
+  const handleSubmit = () => {
+    POST("/quizes", body).then(({ data, status }) => {
+      if (status !== 200) {
+        console.log(status);
+        console.log(data);
+      } else {
+        console.log(status);
+        console.log(data);
+      }
+    });
   };
   console.log(questions);
   return (
@@ -195,19 +208,6 @@ const CreateQuiz = () => {
               >
                 Add Quiz Question
               </div>
-              {/* <div>
-                <button
-                  type="submit"
-                  disabled={!(quizName && isPaid && duration && courseFee && password)}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    handleSubmit();
-                  }}
-                  className={`w-72 h-12 px-4 py-2 mt-4 text-center text-xl text-gray-700 bg-green-400 font-bold rounded-sm ring-offset-0 ring-0 outline-0 shadow-md cursor-pointer duration-200 disabled:bg-green-300`}
-                >
-                  Add Quiz
-                </button>
-              </div> */}
             </form>
           </div>
         </div>
@@ -226,6 +226,47 @@ const CreateQuiz = () => {
           </div>
           <div className="w-72 h-12 px-4 pt-2 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-xl text-gray-700 font-semibold">
             {`Quiz Fee: ${courseFee}`}
+          </div>
+          <div className="px-4 h-56 mt-7 pt-2 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-xl text-gray-700 font-semibold overflow-scroll">
+            {questions.map((items, i) => {
+              return (
+                <div key={i}>
+                  Question {i + 1}
+                  <div>Name: {items.question}</div>
+                  <div>
+                    {items.correctAnswers.map((item, id) => {
+                      return (
+                        <div key={id} className="pt-1">
+                          Correct Answer: {item}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div>
+                    {items.incorrectAnswers.map((item, id) => {
+                      return (
+                        <div key={id} className="pt-1">
+                          Incorrect Answer: {item}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div>
+            <button
+              type="submit"
+              disabled={!(quizName  && duration && courseFee )}
+              onClick={(event) => {
+                event.preventDefault();
+                handleSubmit();
+              }}
+              className={`w-72 h-12 px-4 py-2 text-center text-xl text-gray-700 bg-green-400 font-bold rounded-sm ring-offset-0 ring-0 outline-0 shadow-md cursor-pointer duration-200 disabled:bg-green-300`}
+            >
+              Submit Quiz
+            </button>
           </div>
         </div>
       </div>
