@@ -9,16 +9,16 @@ const CreateQuiz = () => {
   const [duration, setDuration] = useState(0);
   const [courseFee, setCourseFee] = useState(0);
   const [question, setQuestion] = useState("");
-  const [correctAnswer, setCorrectAnswer] = useState("");
-  const [correctAnswers, setCorrectAnswers] = useState([]);
-  const [incorrectAnswer, setIncorrectAnswer] = useState("");
-  const [incorrectAnswers, setIncorrectAnswers] = useState([]);
+  const [correctAns, setCorrectAns] = useState("");
+  const [correctAnswer, setCorrectAnswer] = useState([]);
+  const [incorrectAns, setIncorrectAns] = useState("");
+  const [incorrectAnswer, setIncorrectAnswer] = useState([]);
   const [questions, setQuestions] = useState([]);
 
   const questionBody = {
     question,
-    incorrectAnswers,
-    correctAnswers,
+    incorrectAnswer,
+    correctAnswer,
   };
 
   const body = {
@@ -34,24 +34,25 @@ const CreateQuiz = () => {
   useEffect(() => {}, []);
 
   const handleAddCorrectAnswer = () => {
+    // console.log(correctAns);
+    setCorrectAnswer([...correctAnswer, correctAns]);
     // console.log(correctAnswer);
-    setCorrectAnswers([...correctAnswers, correctAnswer]);
-    // console.log(correctAnswers);
   };
   const handleAddIncorrectAnswer = () => {
+    // console.log(incorrectAns);
+    setIncorrectAnswer([...incorrectAnswer, incorrectAns]);
     // console.log(incorrectAnswer);
-    setIncorrectAnswers([...incorrectAnswers, incorrectAnswer]);
-    // console.log(incorrectAnswers);
   };
 
   const handleAddQuizQuestion = () => {
     console.log(questionBody);
     setQuestions([...questions, questionBody]);
     console.log(questions);
-    setCorrectAnswers([]);
-    setIncorrectAnswers([]);
+    setCorrectAnswer([]);
+    setIncorrectAnswer([]);
   };
 
+  console.log("body is", body);
   const handleSubmit = () => {
     POST("/quizes", body).then(({ data, status }) => {
       if (status !== 200) {
@@ -161,13 +162,13 @@ const CreateQuiz = () => {
               <div className="py-1 flex">
                 <input
                   onChange={(event) => {
-                    setCorrectAnswer(event.target.value || "");
+                    setCorrectAns(event.target.value || "");
                   }}
-                  value={correctAnswer || ""}
+                  value={correctAns || ""}
                   className="w-56 h-12 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
                   type="text"
-                  name="correctAnswer"
-                  id="correctAnswer"
+                  name="correctAns"
+                  id="correctAns"
                   placeholder="Correct Answer"
                 />
                 <div
@@ -182,13 +183,13 @@ const CreateQuiz = () => {
               <div className="py-1 flex">
                 <input
                   onChange={(event) => {
-                    setIncorrectAnswer(event.target.value || "");
+                    setIncorrectAns(event.target.value || "");
                   }}
-                  value={incorrectAnswer || ""}
+                  value={incorrectAns || ""}
                   className="w-56 h-12 px-4 rounded-sm border drop-shadow-sm ring-offset-0 ring-0 outline-0 text-center text-xl text-gray-700 font-semibold"
                   type="text"
-                  name="incorrectAnswer"
-                  id="incorrectAnswer"
+                  name="incorrectAns"
+                  id="incorrectAns"
                   placeholder="Incorrect Answer"
                 />
                 <div
@@ -234,7 +235,7 @@ const CreateQuiz = () => {
                   Question {i + 1}
                   <div>Name: {items.question}</div>
                   <div>
-                    {items.correctAnswers.map((item, id) => {
+                    {items.correctAnswer.map((item, id) => {
                       return (
                         <div key={id} className="pt-1">
                           Correct Answer: {item}
@@ -243,7 +244,7 @@ const CreateQuiz = () => {
                     })}
                   </div>
                   <div>
-                    {items.incorrectAnswers.map((item, id) => {
+                    {items.incorrectAnswer.map((item, id) => {
                       return (
                         <div key={id} className="pt-1">
                           Incorrect Answer: {item}
@@ -258,7 +259,7 @@ const CreateQuiz = () => {
           <div>
             <button
               type="submit"
-              disabled={!(quizName  && duration && courseFee )}
+              disabled={!(quizName && duration && courseFee)}
               onClick={(event) => {
                 event.preventDefault();
                 handleSubmit();
