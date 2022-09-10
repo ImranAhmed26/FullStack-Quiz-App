@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { POST } from "../lib/api";
 
@@ -29,19 +28,13 @@ const CreateQuiz = () => {
     questions: questions,
   };
 
-  const router = useRouter();
-
   useEffect(() => {}, []);
 
   const handleAddCorrectAnswer = () => {
-    // console.log(correctAns);
     setCorrectAnswer([...correctAnswer, correctAns]);
-    // console.log(correctAnswer);
   };
   const handleAddIncorrectAnswer = () => {
-    // console.log(incorrectAns);
     setIncorrectAnswer([...incorrectAnswer, incorrectAns]);
-    // console.log(incorrectAnswer);
   };
 
   const handleAddQuizQuestion = () => {
@@ -52,7 +45,6 @@ const CreateQuiz = () => {
     setIncorrectAnswer([]);
   };
 
-  console.log("body is", body);
   const handleSubmit = () => {
     POST("/quizes", body).then(({ data, status }) => {
       if (status !== 200) {
